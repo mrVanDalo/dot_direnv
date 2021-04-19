@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+function terraform_format() {
+    local folder="${PROJECT_ROOT:?error}"
+    find "$folder" -type f | egrep ".*\.tf$" | while read file
+    do 
+        terraform fmt "$file"
+    done
+}
+
+terraform_format

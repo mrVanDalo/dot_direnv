@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+function remove_symlink_replacements() {
+    local folder="${PROJECT_ROOT:?error}"
+    find "$folder" -type f | egrep "h4x0r_.*\.tf" | while read file
+    do 
+        echo "delete $file"
+        rm -f "$file"
+    done
+}
+
+function create_symlink_replacements() {
+    local folder="${PROJECT_ROOT:?error}"
+    find "$folder" -type l | while read file
+    do
+        DIR=$(dirname "$file")
+        FILE=$(basename "$file")
+        TARGET="$DIR/h4x0r_$FILE"
+        echo "$TARGET"
+        cat "$file" > $TARGET
+    done
+}
+
+case `basename $0` in
+    terraform_help_create) 
+        create_symlink_replacements
+    ;;
+    terraform_help_clean) 
+        remove_symlink_replacements
+    ;;
+esac
+
