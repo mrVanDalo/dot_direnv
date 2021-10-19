@@ -10,3 +10,4 @@ if [[ $response = "yes" ]]
 then
   noti --message "terraform apply finished" --title "terraform" --time terraform apply -auto-approve $PLAN_OUTPUT
 fi
+rm -f $PLAN_OUTPUT
