@@ -8,4 +8,4 @@ function terraform_format() {
     done
 }
 
-noti --message "terrform format finished" --title "terraform" --time terraform_format
+terraform_format
