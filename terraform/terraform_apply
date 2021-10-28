@@ -4,8 +4,15 @@
 
 PLAN_OUTPUT=`mktemp`
 noti --message "terraform apply is waiting for input" --title "terraform" terraform plan -out=$PLAN_OUTPUT
-echo "> apply? (type yes)"
+if [[ $? -ne 0 ]]
+then
+   exit 1
+fi
+
+echo
+echo -n "> apply? (type yes) "
 read response
+
 if [[ $response = "yes" ]]
 then
   noti --message "terraform apply finished" --title "terraform" --time terraform apply -auto-approve $PLAN_OUTPUT
